@@ -7,11 +7,17 @@ using Autofac;
 using System;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.StaticFiles;
+using ExpertalSystem.Mongo;
+using ExpertalSystem.Domain;
+using ExpertalSystem.Repositories;
+using Autofac.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace ExpertalSystem
 {
     public class Startup
     {
+        private ILifetimeScope AutofacContainer { get; set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -40,33 +46,46 @@ namespace ExpertalSystem
                 });
             });
 
-            var builder = new ContainerBuilder();
-            builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies()).AsImplementedInterfaces().InstancePerRequest();
+            services.AddMvcCore(options=>
+            {
+                options.EnableEndpointRouting = false;
+            }).AddNewtonsoftJson();
+
+            services.AddMvc();
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
+            builder.AddMongo();
+            builder.AddRepository<User>("Users");
+            builder.AddRepository<Rule>("Rules");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            AutofacContainer = app.ApplicationServices.GetAutofacRoot();
             app.UseSwagger();
 
             app.UseSwaggerUI(o =>
             {
                 o.SwaggerEndpoint("v1/swagger.json", "v1");
             });
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
+            
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            app.UseRouting();
+            app.UseEndpoints(options =>
             {
-                endpoints.MapControllers();
+                options.MapControllers();
+            });
+            applicationLifetime.ApplicationStopped.Register(() =>
+            {
+                AutofacContainer.Dispose();
             });
         }
     }

@@ -25,7 +25,7 @@ namespace ExpertalSystem.LogicServices
         {
             if (IsResponseFound(previouseQuestion))
                 return default;
-            return new Question("")
+            return new Question("");
         }
 
         private bool IsResponseFound(Question previouseQuestion)

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace ExpertalSystem.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class QuestionController : BaseController
     {
         [HttpGet]
