@@ -1,4 +1,5 @@
 ﻿using ExpertalSystem.Authorization;
+using ExpertalSystem.Dtos;
 using ExpertalSystem.Repositories;
 using ExpertalSystem.Requests;
 using Microsoft.AspNetCore.Mvc;
@@ -19,15 +20,15 @@ namespace ExpertalSystem.Controllers
             _userRepository = userRepository;
         }
         [HttpPost("auth")]
-        public IActionResult Auth([FromBody] AuthenticateRequest authenticateRequest)
+        public async Task<IActionResult> Auth([FromBody] AuthenticateRequest authenticateRequest)
         {
-            var token = JWTManager.GenerateToken(authenticateRequest.Login);
-            //if (_userRepository.GetAsync(p=>p.Login == authenticateRequest.Login && p.Password == authenticateRequest.Password) != null)
-            //{
-            //    token = JWTManager.GenerateToken(authenticateRequest.Login);
-            //    return Ok(token);
-            //}
-            return BadRequest(token);
+            var user = await _userRepository.GetAsync(p => p.name.Equals(authenticateRequest.Login) && p.Password.Equals(authenticateRequest.Password));
+            if (user != null)
+            {
+                var token = JWTManager.GenerateToken(authenticateRequest.Login);
+                return Ok(new JwtToken { Token = token });
+            }
+            return BadRequest("User not found");
         }
     }
 }

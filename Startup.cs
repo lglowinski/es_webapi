@@ -12,6 +12,8 @@ using ExpertalSystem.Domain;
 using ExpertalSystem.Repositories;
 using Autofac.Extensions.DependencyInjection;
 using System.Reflection;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace ExpertalSystem
 {
@@ -28,7 +30,13 @@ namespace ExpertalSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(o => o.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             services.AddControllers();
             services.AddSwaggerGen(o =>
             {
@@ -70,6 +78,7 @@ namespace ExpertalSystem
                 app.UseDeveloperExceptionPage();
             }
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+            app.UseCors();
             app.UseSwagger();
 
             app.UseSwaggerUI(o =>

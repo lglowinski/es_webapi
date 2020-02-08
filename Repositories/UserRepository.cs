@@ -25,14 +25,14 @@ namespace ExpertalSystem.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<User> GetAsync(ObjectId id)
+        public Task<User> GetAsync(string id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> GetAsync(Expression<Func<User, bool>> expression)
+        public async Task<User> GetAsync(Expression<Func<User, bool>> expression)
         {
-            throw new NotImplementedException();
+            return await _repository.GetAsync(expression);
         }
     }
 }

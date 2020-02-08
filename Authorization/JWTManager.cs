@@ -23,7 +23,7 @@ namespace ExpertalSystem.Authorization
                 Subject = new ClaimsIdentity(new[]
                 {
             new Claim(ClaimTypes.Name, username)
-        }),
+            }),
 
                 Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),
 

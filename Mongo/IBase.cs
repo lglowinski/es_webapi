@@ -1,4 +1,7 @@
-﻿using MongoDB.Bson;
+﻿using ExpertalSystem.Domain;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Serializers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +11,6 @@ namespace ExpertalSystem.Mongo
 {
     public interface IBase
     {
-        string Name { get;}
+        string name { get;}
     }
 }

@@ -9,7 +9,7 @@ namespace ExpertalSystem.Mongo
 {
     public interface IRepository<TEntity> where TEntity : IBase
     {
-        Task<TEntity> GetAsync(ObjectId id);
+        Task<TEntity> GetAsync(string id);
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression);
 
         Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> expression);

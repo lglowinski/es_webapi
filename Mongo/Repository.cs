@@ -25,10 +25,10 @@ namespace ExpertalSystem.Mongo
             return (await _mongoCollection.FindAsync(expression)).Current.ToList();
         }
 
-        public async Task<TEntity> GetAsync(ObjectId id)
-        =>  (await _mongoCollection.FindAsync(p => p.Id == id)).Current.FirstOrDefault();
+        public async Task<TEntity> GetAsync(string id)
+        => await _mongoCollection.AsQueryable<TEntity>().SingleOrDefault(p => p.name.Equals(id));
 
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression)
-        => (await _mongoCollection.FindAsync(expression)).Current.FirstOrDefault();
+        => await _mongoCollection.AsQueryable<TEntity>().SingleOrDefault(expression);
     }
 }
