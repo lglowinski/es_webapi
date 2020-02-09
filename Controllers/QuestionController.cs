@@ -14,7 +14,8 @@ namespace ExpertalSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<Response>> GetQuestion([FromQuery] GetQuestionRequest request)
         {
-            return Ok($"{request.PreviousQuestion} / {request.IsFirstQuestion}");
+            return Ok();
+            //return Ok($"{request.PreviousQuestion} / {request.IsFirstQuestion}");
         }
     }
 }

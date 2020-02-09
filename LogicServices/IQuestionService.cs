@@ -6,7 +6,5 @@ namespace ExpertalSystem.LogicServices
 {
     public interface IQuestionService
     {
-        Question GetFirstQuestion();
-        Question GetNextQuestion(Question previouseQuestion, string answare);
     }
 }
