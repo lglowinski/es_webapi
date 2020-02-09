@@ -1,4 +1,5 @@
-﻿using ExpertalSystem.Domain;
+﻿using ExpertalSystem.Authorization;
+using ExpertalSystem.Domain;
 using ExpertalSystem.Mongo;
 using MongoDB.Bson;
 using System;
@@ -15,9 +16,9 @@ namespace ExpertalSystem.Repositories
         {
             _repository = repository;
         }
-        public Task AddAsync(User entity)
+        public async Task AddAsync(User entity)
         {
-            throw new NotImplementedException();
+            await _repository.AddAsync(entity);
         }
 
         public Task<IEnumerable<User>> FindAsync(Expression<Func<User, bool>> expression)
@@ -25,9 +26,14 @@ namespace ExpertalSystem.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<User> GetAsync(string id)
+        public async Task<User> GetAsync(string name)
         {
-            throw new NotImplementedException();
+            return await _repository.GetAsync(name);
+        }
+
+        public async Task<User> GetAsync(string login, string password)
+        {
+            return await _repository.GetAsync(x=>x.Name.Equals(login) && x.Password.Equals(password));
         }
 
         public async Task<User> GetAsync(Expression<Func<User, bool>> expression)

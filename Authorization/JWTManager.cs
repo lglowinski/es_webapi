@@ -12,7 +12,7 @@ namespace ExpertalSystem.Authorization
     {
         private const string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
 
-        public static string GenerateToken(string username, int expireMinutes = 20)
+        public static string GenerateToken(string id, string username, int expireMinutes = 20)
         {
             var symmetricKey = Convert.FromBase64String(Secret);
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -22,8 +22,9 @@ namespace ExpertalSystem.Authorization
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-            new Claim(ClaimTypes.Name, username)
-            }),
+                 new Claim(ClaimTypes.Name, username),
+                 new Claim(ClaimTypes.NameIdentifier, id)
+                }),
 
                 Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),
 

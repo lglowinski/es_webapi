@@ -5,9 +5,11 @@ using MongoDB.Bson.Serialization.Serializers;
 
 namespace ExpertalSystem.Domain
 {
-    [BsonSerializer(typeof(ImpliedImplementationInterfaceSerializer<IBase, BaseEntity>))]
     public class BaseEntity : IBase
     {
-        public string name { get; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public ObjectId Id { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public string Name { get; set; }
     }
 }

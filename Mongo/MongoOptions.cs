@@ -9,7 +9,5 @@ namespace ExpertalSystem.Mongo
     {
         public string ConnectionString { get; set; }
         public string DbName { get; set; }
-        public string Users { get; set; }
-        public string Rules { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace ExpertalSystem.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
-
+        Task<User> GetAsync(string login, string password);
     }
 }

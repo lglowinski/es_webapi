@@ -11,6 +11,7 @@ namespace ExpertalSystem.Mongo
 {
     public interface IBase
     {
-        string name { get;}
+        public ObjectId Id { get; set; }
+        string Name { get; set; }
     }
 }

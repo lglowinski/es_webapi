@@ -14,6 +14,7 @@ using Autofac.Extensions.DependencyInjection;
 using System.Reflection;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using System.IO;
 
 namespace ExpertalSystem
 {
@@ -52,8 +53,11 @@ namespace ExpertalSystem
                         Url = new Uri("https://lglowinski.pl")
                     }
                 });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                o.IncludeXmlComments(xmlPath);
             });
-
+            
             services.AddMvcCore(options=>
             {
                 options.EnableEndpointRouting = false;
@@ -64,6 +68,7 @@ namespace ExpertalSystem
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            BsonSerializer.RegisterSerializer<IBase>(new ImpliedImplementationInterfaceSerializer<IBase, BaseEntity>(BsonSerializer.LookupSerializer<BaseEntity>()));
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
             builder.AddMongo();
             builder.AddRepository<User>("Users");
