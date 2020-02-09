@@ -90,9 +90,9 @@ namespace ExpertalSystem
             {
                 o.SwaggerEndpoint("v1/swagger.json", "v1");
             });
-            
-            app.UseAuthorization();
+
             app.UseRouting();
+            app.UseAuthorization();
             app.UseEndpoints(options =>
             {
                 options.MapControllers();

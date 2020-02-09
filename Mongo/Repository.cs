@@ -10,7 +10,7 @@ namespace ExpertalSystem.Mongo
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : IBase
     {
-        private IMongoCollection<TEntity> _mongoCollection;
+        private readonly IMongoCollection<TEntity> _mongoCollection;
         public Repository(IMongoDatabase mongoDatabase, string collection)
         {
             _mongoCollection = mongoDatabase.GetCollection<TEntity>(collection);

@@ -9,8 +9,16 @@ namespace ExpertalSystem.Requests
 {
     public class GetQuestionRequest
     {
-        public Question PreviousQuestion { get; set; }
+        public QuestionType QuestionType { get; set; }
+        public string? SessionId { get; set; }
         [Required]
         public bool IsFirstQuestion { get; set; }
+    }
+
+    public enum QuestionType
+    {
+        ScreenQuestion,
+        HardwareQuestion,
+        IOQuestion
     }
 }
