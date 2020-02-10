@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace ExpertalSystem.Controllers
 {
     [ApiController]
+    [Route("questions")]
     public class QuestionController : BaseController
     {
         [HttpGet]
@@ -17,5 +18,13 @@ namespace ExpertalSystem.Controllers
             return Ok();
             //return Ok($"{request.PreviousQuestion} / {request.IsFirstQuestion}");
         }
+        [HttpPost]
+        public async Task<ActionResult<Response>> CreateQuestion([FromBody] CreateQuestionRequest request)
+        {
+            var r = request;
+            return Ok();
+            //return Ok($"{request.PreviousQuestion} / {request.IsFirstQuestion}");
+        }
+
     }
 }
