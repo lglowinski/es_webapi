@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace ExpertalSystem.Domain
 {
-    public class Rule : BaseEntity
+    public enum IssueTypes
     {
+        ScreenIssue = 0,
+        HardwareIssue = 1,
+        IOIssue = 2
     }
 }

@@ -19,13 +19,11 @@ namespace ExpertalSystem.Mongo
         public async Task AddAsync(TEntity entity)
             => await _mongoCollection.InsertOneAsync(entity, new InsertOneOptions());
 
-        public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> expression)
-        {
-            return await _mongoCollection.Find(expression).ToListAsync();
-        }
+        public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> expression) => await _mongoCollection.Find(expression).ToListAsync();
+        public async Task<IEnumerable<TEntity>> FindAsync() => await _mongoCollection.Find(p=>p!=null).ToListAsync();
 
-        public async Task<TEntity> GetAsync(string name)
-        => await _mongoCollection.Find(p => p.Name.Equals(name)).SingleOrDefaultAsync();
+        public async Task<TEntity> GetAsync(Guid id)
+        => await _mongoCollection.Find(p => p.Id.Equals(id)).SingleOrDefaultAsync();
 
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression)
         => await _mongoCollection.Find(expression).SingleOrDefaultAsync();

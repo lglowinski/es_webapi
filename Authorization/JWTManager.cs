@@ -27,7 +27,7 @@ namespace ExpertalSystem.Authorization
                 }),
 
                 Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),
-
+                Issuer = "expertal-system-app",
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(symmetricKey),
                     SecurityAlgorithms.HmacSha256Signature)

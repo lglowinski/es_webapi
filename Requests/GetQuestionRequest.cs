@@ -10,9 +10,9 @@ namespace ExpertalSystem.Requests
     public class GetQuestionRequest
     {
         public QuestionType QuestionType { get; set; }
+
+        #nullable enable
         public string? SessionId { get; set; }
-        [Required]
-        public bool IsFirstQuestion { get; set; }
     }
 
     public enum QuestionType

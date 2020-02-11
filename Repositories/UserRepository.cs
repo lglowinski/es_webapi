@@ -17,28 +17,21 @@ namespace ExpertalSystem.Repositories
             _repository = repository;
         }
         public async Task AddAsync(User entity)
-        {
-            await _repository.AddAsync(entity);
-        }
+            => await _repository.AddAsync(entity);
 
-        public Task<IEnumerable<User>> FindAsync(Expression<Func<User, bool>> expression)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IEnumerable<User>> FindAsync(Expression<Func<User, bool>> expression)
+            => await _repository.FindAsync(p => p != null);
 
-        public async Task<User> GetAsync(string name)
-        {
-            return await _repository.GetAsync(name);
-        }
+        public async Task<IEnumerable<User>> FindAsync()
+            => await _repository.FindAsync();
 
         public async Task<User> GetAsync(string login, string password)
-        {
-            return await _repository.GetAsync(x=>x.Name.Equals(login) && x.Password.Equals(password));
-        }
-
+            => await _repository.GetAsync(x=>x.Name.Equals(login) && x.Password.Equals(password));
+        
         public async Task<User> GetAsync(Expression<Func<User, bool>> expression)
-        {
-            return await _repository.GetAsync(expression);
-        }
+            => await _repository.GetAsync(expression);
+
+        public async Task<User> GetAsync(Guid id)
+            => await _repository.GetAsync(id);
     }
 }

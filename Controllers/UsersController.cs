@@ -31,14 +31,14 @@ namespace ExpertalSystem.Controllers
         [HttpPost("user")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
         {
-            if (await _userRepository.GetAsync(request.Name) != null) return BadRequest("User with this name already exists");
+            if ((await _userRepository.GetAsync(p=>p.Name.Equals(request.Name)) != null))
+                return BadRequest("User with this name already exists");
 
-            var generator = new ObjectIdGenerator();
             var user = new User()
             {
                 Name = request.Name,
                 Password = Hasher.HashPassword(request.Password),
-                Id = (ObjectId) (generator.GenerateId("users", $"{request.Name}{request.Password}"))
+                Id = Guid.NewGuid()
             };
             await _userRepository.AddAsync(user);
             return Created("userName", user);
@@ -52,7 +52,7 @@ namespace ExpertalSystem.Controllers
         [HttpPost("auth")]
         public async Task<IActionResult> Auth([FromBody] AuthenticateRequest authenticateRequest)
         {
-            var fetchedUser = await _userRepository.GetAsync(authenticateRequest.Login);
+            var fetchedUser = await _userRepository.GetAsync(x=>x.Name.Equals(authenticateRequest.Login));
             if (fetchedUser is null) return NotFound("User with this name was not found");
 
             if (Hasher.Encrypt(authenticateRequest.Password, fetchedUser.Password))
