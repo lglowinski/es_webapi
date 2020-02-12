@@ -26,7 +26,7 @@ namespace ExpertalSystem.Repositories
         /// <param name="expression"></param>
         /// <returns></returns>
         public async Task<IEnumerable<Question>> FindAsync(Expression<Func<Question, bool>> expression)
-            => await _repository.FindAsync(p => p != null);
+            => await _repository.FindAsync(expression);
 
         /// <summary>
         /// Returns questions by given type

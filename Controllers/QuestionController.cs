@@ -26,7 +26,7 @@ namespace ExpertalSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Domain.Question>>> GetAllQuestion([FromQuery] GetAllQuestionsRequest request)
         {
-            var questions = await _questionRepository.FindAsync(x=>x.IssueTypes == request.IssueType);
+            var questions = await _questionRepository.FindAsync(p=>p.IssueTypes == request.IssueType);
             return Ok(questions);
         }
 
