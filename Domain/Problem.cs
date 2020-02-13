@@ -16,7 +16,7 @@ namespace ExpertalSystem.Domain
         public List<QuestionBasic> Questions { get; set; } = new List<QuestionBasic>();
 
         [BsonRepresentation(BsonType.String)]
-        public IssueTypes IssueTypes { get; set; }
+        public IssueType IssueType { get; set; }
 
         public string Solution { get; set; }
     }

@@ -26,7 +26,14 @@ namespace ExpertalSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Domain.Problem>>> GetAllProblems([FromQuery] GetAllProblemsRequest request)
         {
-            var questions = await _problemRepository.FindAsync(p=>p.IssueTypes == request.IssueType);
+            var questions = await _problemRepository.FindAsync(p=>p.IssueType == request.IssueType);
+            return Ok(questions);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Domain.Problem>>> GetAllProblems([FromRoute] Guid id)
+        {
+            var questions = await _problemRepository.GetAsync(id);
             return Ok(questions);
         }
 
@@ -46,7 +53,7 @@ namespace ExpertalSystem.Controllers
                 Id = Guid.NewGuid(),
                 ProblemName = request.ProblemName,
                 Solution = request.Solution,
-                IssueTypes = request.IssueType
+                IssueType = request.IssueType
             };
 
             foreach(var question in request.Questions)

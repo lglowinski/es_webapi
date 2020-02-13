@@ -33,8 +33,8 @@ namespace ExpertalSystem.Repositories
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Problem>> FindAsync(IssueTypes type)
-            => await _repository.FindAsync(p => p.IssueTypes == type);
+        public async Task<IEnumerable<Problem>> FindAsync(IssueType type)
+            => await _repository.FindAsync(p => p.IssueType == type);
 
         public async Task<IEnumerable<Problem>> FindAsync()
             => await _repository.FindAsync();

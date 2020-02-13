@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 
 namespace ExpertalSystem.Domain
 {
-    public enum IssueTypes
+    public enum IssueType
     {
         ScreenIssue = 0,
         HardwareIssue = 1,

@@ -4,6 +4,6 @@ namespace ExpertalSystem.Requests
 {
     public class GetAllProblemsRequest
     {
-        public IssueTypes IssueType { get; set; }
+        public IssueType IssueType { get; set; }
     }
 }

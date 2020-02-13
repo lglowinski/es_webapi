@@ -10,7 +10,7 @@ namespace ExpertalSystem.Requests
     {
         public string ProblemName { get; set; }
         public List<QuestionRequest> Questions { get; set; }
-        public IssueTypes IssueType { get; set; }
+        public IssueType IssueType { get; set; }
         public string Solution { get; set; }
     }
 
