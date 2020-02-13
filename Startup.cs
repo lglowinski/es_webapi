@@ -75,8 +75,8 @@ namespace ExpertalSystem
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
             builder.AddMongo();
             builder.AddRepository<User>("Users");
+            builder.AddRepository<Problem>("Problems");
             builder.AddRepository<Question>("Questions");
-            builder.AddRepository<Clause>("Clauses");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

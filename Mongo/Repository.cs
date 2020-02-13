@@ -48,5 +48,10 @@ namespace ExpertalSystem.Mongo
 
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression)
         => await _mongoCollection.Find(expression).SingleOrDefaultAsync();
+
+        public async Task UpdateAsync(TEntity entity)
+        { 
+            await _mongoCollection.ReplaceOneAsync<TEntity>(p => p.Id == entity.Id, entity);
+        }
     }
 }

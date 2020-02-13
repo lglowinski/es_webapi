@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace ExpertalSystem.Requests
 {
-    public class CreateQuestionRequest
+    public class CreateProblemRequest
     {
-        public string RuleName { get; set; }
-        public List<QuestionRequest> ClausesFields { get; set; }
+        public string ProblemName { get; set; }
+        public List<QuestionRequest> Questions { get; set; }
         public IssueTypes IssueType { get; set; }
-        public string Consequence { get; set; }
+        public string Solution { get; set; }
     }
 
     public class QuestionRequest
     {
-        public string Clause { get; set; }
+        public string QuestionName { get; set; }
         public string Answer { get; set; }
     }
 }

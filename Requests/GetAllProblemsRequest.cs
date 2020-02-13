@@ -2,7 +2,7 @@
 
 namespace ExpertalSystem.Requests
 {
-    public class GetAllQuestionsRequest
+    public class GetAllProblemsRequest
     {
         public IssueTypes IssueType { get; set; }
     }

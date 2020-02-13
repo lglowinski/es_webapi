@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace ExpertalSystem.Requests
 {
-    public class GetQuestionRequest
+    public class GetProblemRequest
     {
-        public QuestionType QuestionType { get; set; }
+        public ProblemType ProblemType { get; set; }
 
         #nullable enable
         public string? SessionId { get; set; }
     }
 
-    public enum QuestionType
+    public enum ProblemType
     {
         ScreenQuestion,
         HardwareQuestion,
