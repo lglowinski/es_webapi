@@ -10,5 +10,6 @@ namespace ExpertalSystem.Repositories
 {
     public interface IProblemRepository : IRepository<Problem>
     {
+        Task<IEnumerable<Problem>> FindAsync(IssueType type);
     }
 }

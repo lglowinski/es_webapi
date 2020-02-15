@@ -1,4 +1,7 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Autofac;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,13 +11,16 @@ using System.Threading.Tasks;
 
 namespace ExpertalSystem.Authorization
 {
-    public static class JWTManager
+    public class JWTManager : IJWTManager
     {
-        private const string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
-
-        public static string GenerateToken(string id, string username, int expireMinutes = 20)
+        private readonly IConfiguration _configuration;
+        public JWTManager(IConfiguration configuration)
         {
-            var symmetricKey = Convert.FromBase64String(Secret);
+            _configuration = configuration;
+        }
+        public string GenerateToken(string id, string username, int expireMinutes = 20)
+        {
+            var symmetricKey = Convert.FromBase64String(_configuration.GetValue<string>("secret"));
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var now = DateTime.UtcNow;
@@ -25,9 +31,8 @@ namespace ExpertalSystem.Authorization
                  new Claim(ClaimTypes.Name, username),
                  new Claim(ClaimTypes.NameIdentifier, id)
                 }),
-
                 Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),
-                Issuer = "expertal-system-app",
+                Issuer = _configuration.GetValue<string>("issuer"),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(symmetricKey),
                     SecurityAlgorithms.HmacSha256Signature)

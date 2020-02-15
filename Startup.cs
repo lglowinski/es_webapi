@@ -15,6 +15,11 @@ using System.Reflection;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using System.IO;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using ExpertalSystem.Swagger;
+using System.Text;
+using ExpertalSystem.Authorization;
 
 namespace ExpertalSystem
 {
@@ -37,31 +42,15 @@ namespace ExpertalSystem
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
+            services.AddCustomAuthorization(Configuration);
 
             services.AddControllers();
-            services.AddSwaggerGen(o =>
-            {
-                o.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Description = "Expertal system API created for bachleor degree",
-                    Title = "Expertal System API",
-                    Version = "v1",
-                    Contact = new OpenApiContact
-                    {
-                        Email = "lukasz.glowinski@o2.pl",
-                        Name = "Lukasz Glowinski",
-                        Url = new Uri("https://lglowinski.pl")
-                    }
-                });
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                o.IncludeXmlComments(xmlPath);
-            });
-            
-            services.AddMvcCore(options=>
+            services.AddSwagger();
+
+            services.AddMvcCore(options =>
             {
                 options.EnableEndpointRouting = false;
-            }).AddJsonOptions(options=>
+            }).AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
             }).AddNewtonsoftJson();
@@ -88,6 +77,9 @@ namespace ExpertalSystem
             }
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();
             app.UseCors();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseMvc();
             app.UseSwagger();
 
             app.UseSwaggerUI(o =>

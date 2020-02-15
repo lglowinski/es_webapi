@@ -18,9 +18,12 @@ namespace ExpertalSystem.Controllers
     public class UsersController : BaseController
     {
         private readonly IUserRepository _userRepository;
-        public UsersController(IUserRepository userRepository)
+        private readonly IJWTManager _jWTManager;
+
+        public UsersController(IUserRepository userRepository, IJWTManager jWTManager)
         {
             _userRepository = userRepository;
+            _jWTManager = jWTManager;
         }
 
         /// <summary>
@@ -57,7 +60,7 @@ namespace ExpertalSystem.Controllers
 
             if (Hasher.Encrypt(authenticateRequest.Password, fetchedUser.Password))
             {
-                var token = JWTManager.GenerateToken(fetchedUser.Id.ToString(), fetchedUser.Name);
+                var token = _jWTManager.GenerateToken(fetchedUser.Id.ToString(), fetchedUser.Name, 43200);
                 return Ok(new JwtToken { Token = token });
             }
             return BadRequest("Wrong password");

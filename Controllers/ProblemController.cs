@@ -2,6 +2,7 @@
 using ExpertalSystem.Dtos;
 using ExpertalSystem.Repositories;
 using ExpertalSystem.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,7 @@ namespace ExpertalSystem.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Question>> CreateProblem([FromBody] CreateProblemRequest request)
         {

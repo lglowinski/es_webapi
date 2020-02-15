@@ -30,6 +30,12 @@ namespace ExpertalSystem.Repositories
         public async Task<Question> GetAsync(Expression<Func<Question, bool>> expression)
             => await _repository.GetAsync(expression);
 
+        public async Task<List<string>> GetQuestionAnswers(Guid id)
+            => (await _repository.GetAsync(p => p.Id == id)).Answers;
+
+        public async Task<List<string>> GetQuestionAnswers(string questionName)
+            => (await _repository.GetAsync(p => p.QuestionName.Equals(questionName))).Answers;
+
         public async Task UpdateAsync(Question entity)
             => await _repository.UpdateAsync(entity);
     }
