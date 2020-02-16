@@ -1,10 +1,8 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace ExpertalSystem.Mongo
 {
@@ -20,28 +18,10 @@ namespace ExpertalSystem.Mongo
             => await _mongoCollection.InsertOneAsync(entity, new InsertOneOptions());
 
         public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> expression)
-        {
-            try
-            {
-                var result = await _mongoCollection.Find(expression).ToListAsync();
-                return result;
-            }catch(Exception e)
-            {
-                Console.Write(e);
-            }
-            return null;
-        }
-        public async Task<IEnumerable<TEntity>> FindAsync()
-        {
-            try
-            {
-                var result = await _mongoCollection.Find(p=>true).ToListAsync();
-            }catch(Exception e)
-            {
+             => await _mongoCollection.Find(expression).ToListAsync();
 
-            }
-            return null;
-        }
+        public async Task<IEnumerable<TEntity>> FindAsync()
+            => await _mongoCollection.Find(p=>true).ToListAsync();
 
         public async Task<TEntity> GetAsync(Guid id)
         => await _mongoCollection.Find(p => p.Id.Equals(id)).SingleOrDefaultAsync();

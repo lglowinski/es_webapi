@@ -1,20 +1,15 @@
-﻿using Autofac;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ExpertalSystem.Authorization
 {
-    public class JWTManager : IJWTManager
+    public class JwtManager : IJwtManager
     {
         private readonly IConfiguration _configuration;
-        public JWTManager(IConfiguration configuration)
+        public JwtManager(IConfiguration configuration)
         {
             _configuration = configuration;
         }

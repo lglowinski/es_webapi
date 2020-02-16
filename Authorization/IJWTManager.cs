@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ExpertalSystem.Authorization
+﻿namespace ExpertalSystem.Authorization
 {
-    public interface IJWTManager
+    public interface IJwtManager
     {
         string GenerateToken(string id, string username, int expireMinutes = 20);
     }

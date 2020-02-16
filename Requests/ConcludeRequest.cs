@@ -1,9 +1,5 @@
-﻿using chen0040.ExpertSystem;
+﻿using System.Collections.Generic;
 using ExpertalSystem.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ExpertalSystem.Requests
 {

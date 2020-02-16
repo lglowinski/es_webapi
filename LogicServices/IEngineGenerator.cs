@@ -1,6 +1,5 @@
-﻿using chen0040.ExpertSystem;
+﻿using System.Threading.Tasks;
 using ExpertalSystem.Domain;
-using System.Threading.Tasks;
 
 namespace ExpertalSystem.LogicServices
 {

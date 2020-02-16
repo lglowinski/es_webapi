@@ -1,16 +1,13 @@
-﻿using chen0040.ExpertSystem;
+﻿using System.Threading.Tasks;
+using chen0040.ExpertSystem;
 using ExpertalSystem.Domain;
 using ExpertalSystem.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ExpertalSystem.LogicServices
 {
     public class EngineGenerator : IEngineGenerator
     {
-        IProblemRepository _problemRepository;
+        private readonly IProblemRepository _problemRepository;
         public EngineGenerator(IProblemRepository problemRepository)
         {
             _problemRepository = problemRepository;

@@ -1,11 +1,8 @@
-﻿using chen0040.ExpertSystem;
-using ExpertalSystem.Dtos;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using chen0040.ExpertSystem;
 using ExpertalSystem.Repositories;
 using ExpertalSystem.Requests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ExpertalSystem.LogicServices
 {

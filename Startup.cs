@@ -1,25 +1,17 @@
+using System.Reflection;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using ExpertalSystem.Authorization;
+using ExpertalSystem.Domain;
+using ExpertalSystem.Mongo;
+using ExpertalSystem.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Autofac;
-using System;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.StaticFiles;
-using ExpertalSystem.Mongo;
-using ExpertalSystem.Domain;
-using ExpertalSystem.Repositories;
-using Autofac.Extensions.DependencyInjection;
-using System.Reflection;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using System.IO;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using ExpertalSystem.Swagger;
-using System.Text;
-using ExpertalSystem.Authorization;
 
 namespace ExpertalSystem
 {

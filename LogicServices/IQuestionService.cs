@@ -1,7 +1,5 @@
-﻿using ExpertalSystem.Dtos;
+﻿using System.Threading.Tasks;
 using ExpertalSystem.Requests;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ExpertalSystem.LogicServices
 {

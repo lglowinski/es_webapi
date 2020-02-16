@@ -1,15 +1,11 @@
-﻿using ExpertalSystem.Authorization;
+﻿using System;
+using System.Threading.Tasks;
+using ExpertalSystem.Authorization;
 using ExpertalSystem.Domain;
 using ExpertalSystem.Dtos;
 using ExpertalSystem.Repositories;
 using ExpertalSystem.Requests;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.IdGenerators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ExpertalSystem.Controllers
 {
@@ -18,9 +14,9 @@ namespace ExpertalSystem.Controllers
     public class UsersController : BaseController
     {
         private readonly IUserRepository _userRepository;
-        private readonly IJWTManager _jWTManager;
+        private readonly IJwtManager _jWTManager;
 
-        public UsersController(IUserRepository userRepository, IJWTManager jWTManager)
+        public UsersController(IUserRepository userRepository, IJwtManager jWTManager)
         {
             _userRepository = userRepository;
             _jWTManager = jWTManager;

@@ -1,13 +1,11 @@
-﻿using ExpertalSystem.Domain;
-using ExpertalSystem.Dtos;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using ExpertalSystem.Domain;
 using ExpertalSystem.Repositories;
 using ExpertalSystem.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ExpertalSystem.Controllers
 {

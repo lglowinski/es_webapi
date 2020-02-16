@@ -1,11 +1,6 @@
 ﻿using Autofac;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ExpertalSystem.Mongo
 {
@@ -43,11 +38,6 @@ namespace ExpertalSystem.Mongo
              new Repository<TEntity>(context.Resolve<IMongoDatabase>(), collection)
             ).As<IRepository<TEntity>>().InstancePerLifetimeScope();
         }
-
-        //public static void AddSeeder<TEntity>(this IApplicationBuilder app, string collection) where TEntity : IBase
-        //{
-        //    builder.Register(context => new MongoDbSeeder<TEntity>(context.Resolve<IMongoDatabase>(), collection));
-        //}
 
         public static TModel GetOptions<TModel>(this IConfiguration configuration, string section) where TModel : new()
         {

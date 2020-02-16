@@ -1,10 +1,7 @@
-﻿using ExpertalSystem.Domain;
-using ExpertalSystem.Dtos;
-using ExpertalSystem.Mongo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ExpertalSystem.Domain;
+using ExpertalSystem.Mongo;
 
 namespace ExpertalSystem.Repositories
 {

@@ -1,11 +1,9 @@
-﻿using ExpertalSystem.Authorization;
-using ExpertalSystem.Domain;
-using ExpertalSystem.Mongo;
-using MongoDB.Bson;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using ExpertalSystem.Domain;
+using ExpertalSystem.Mongo;
 
 namespace ExpertalSystem.Repositories
 {
