@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ExpertalSystem.Domain;
 using ExpertalSystem.Mongo;
-using MongoDB.Driver;
 
 namespace ExpertalSystem.Repositories
 {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ExpertalSystem.Domain;
-using ExpertalSystem.Mongo;
 
 namespace ExpertalSystem.Repositories
 {

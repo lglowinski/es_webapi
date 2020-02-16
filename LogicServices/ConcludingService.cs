@@ -23,7 +23,6 @@ namespace ExpertalSystem.LogicServices
             _logger = logger;
         }
 
-        //TODO: Refactor return type, create new type to be returned
         public async Task<ConcludeResponse> Conclude(ConcludeRequest request)
         {
 
