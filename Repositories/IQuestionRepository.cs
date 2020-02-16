@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ExpertalSystem.Domain;
 using ExpertalSystem.Mongo;
 
 namespace ExpertalSystem.Repositories
 {
-    public interface IQuestionRepository : IRepository<Question>
+    public interface IQuestionRepository
     {
-        public Task<List<string>> GetQuestionAnswers(Guid id);
-        public Task<List<string>> GetQuestionAnswers(string questionName);
+        Task<List<string>> GetQuestionAnswers(Guid id);
+        Task<List<string>> GetQuestionAnswers(string questionName);
+        Task AddAsync(Question entity);
+        Task<IEnumerable<Question>> FindAsync(Expression<Func<Question, bool>> expression);
+        Task<IEnumerable<Question>> FindAsync();
+        Task<Question> GetAsync(Guid id);
+        Task<Question> GetAsync(Expression<Func<Question, bool>> expression);
+        Task UpdateAsync(Question entity);
     }
 }

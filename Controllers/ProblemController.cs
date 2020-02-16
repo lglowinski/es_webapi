@@ -24,15 +24,15 @@ namespace ExpertalSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Domain.Problem>>> GetAllProblems([FromQuery] GetAllProblemsRequest request)
         {
-            var questions = await _problemRepository.FindAsync(p=>p.IssueType == request.IssueType);
-            return Ok(questions);
+            var problem = await _problemRepository.FindAsync(p=>p.IssueType == request.IssueType);
+            return Ok(problem);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Domain.Problem>>> GetAllProblems([FromRoute] Guid id)
+        public async Task<ActionResult<IEnumerable<Domain.Problem>>> GetProblem([FromRoute] Guid id)
         {
-            var questions = await _problemRepository.GetAsync(id);
-            return Ok(questions);
+            var problem = await _problemRepository.GetAsync(id);
+            return Ok(problem);
         }
 
         /// <summary>
@@ -55,19 +55,21 @@ namespace ExpertalSystem.Controllers
                 IssueType = request.IssueType
             };
 
-            foreach(var question in request.Questions)
+            foreach (var question in request.Questions)
             {
                 var newQuestion = new Question()
                 {
                     Id = Guid.NewGuid(),
-                    Answers = new List<string>() { 
-                        question.Answer
+                    Answers = new List<string>()
+                    {
+                        "tak",
+                        "nie"
                     },
                     QuestionName = question.QuestionName
                 };
 
                 var dbQuestion = await _questionRepository.GetAsync(p => p.QuestionName.Equals(question.QuestionName));
-                
+
                 if (dbQuestion != null)
                 {
                     newProblem.Questions.Add(new QuestionBasic
@@ -76,11 +78,10 @@ namespace ExpertalSystem.Controllers
                         Answer = question.Answer,
                         QuestionName = dbQuestion.QuestionName
                     });
-                    if (!dbQuestion.Answers.Contains(question.Answer))
-                    {
-                        dbQuestion.Answers.Add(question.Answer);
-                        await _questionRepository.UpdateAsync(dbQuestion);
-                    }
+                    if (dbQuestion.Answers.Contains(question.Answer)) continue;
+
+                    dbQuestion.Answers.Add(question.Answer);
+                    await _questionRepository.UpdateAsync(dbQuestion);
                 }
                 else
                 {
@@ -93,9 +94,9 @@ namespace ExpertalSystem.Controllers
                     });
                 }
             }
+
             await _problemRepository.AddAsync(newProblem);
             return Created($"{Request.Path.Value}/{newProblem.Id}", newProblem);
         }
-
     }
 }

@@ -4,6 +4,6 @@
     {
         ScreenIssue = 0,
         HardwareIssue = 1,
-        IOIssue = 2
+        IoIssue = 2
     }
 }

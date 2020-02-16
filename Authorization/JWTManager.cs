@@ -33,8 +33,8 @@ namespace ExpertalSystem.Authorization
                     SecurityAlgorithms.HmacSha256Signature)
             };
 
-            var stoken = tokenHandler.CreateToken(tokenDescriptor);
-            var token = tokenHandler.WriteToken(stoken);
+            var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.WriteToken(securityToken);
 
             return token;
         }

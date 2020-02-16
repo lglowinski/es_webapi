@@ -20,7 +20,7 @@ namespace ExpertalSystem.LogicServices
 
             foreach(var problem in problems)
             {
-                Rule rule = new Rule(problem.ProblemName);
+                var rule = new Rule(problem.ProblemName);
                 foreach(var question in problem.Questions)
                 {
                     rule.AddAntecedent(new IsClause(question.QuestionName, question.Answer));
@@ -39,7 +39,7 @@ namespace ExpertalSystem.LogicServices
 
             foreach (var problem in problems)
             {
-                Rule rule = new Rule(problem.ProblemName);
+                var rule = new Rule(problem.ProblemName);
                 foreach (var question in problem.Questions)
                 {
                     rule.AddAntecedent(new IsClause(question.QuestionName, question.Answer));

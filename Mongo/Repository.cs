@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 namespace ExpertalSystem.Mongo
@@ -24,14 +25,15 @@ namespace ExpertalSystem.Mongo
             => await _mongoCollection.Find(p=>true).ToListAsync();
 
         public async Task<TEntity> GetAsync(Guid id)
-        => await _mongoCollection.Find(p => p.Id.Equals(id)).SingleOrDefaultAsync();
+            => await _mongoCollection.Find(p => p.Id.Equals(id)).SingleOrDefaultAsync();
 
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression)
-        => await _mongoCollection.Find(expression).SingleOrDefaultAsync();
+            => await _mongoCollection.Find(expression).SingleOrDefaultAsync();
 
         public async Task UpdateAsync(TEntity entity)
-        { 
-            await _mongoCollection.ReplaceOneAsync<TEntity>(p => p.Id == entity.Id, entity);
-        }
+            => await _mongoCollection.ReplaceOneAsync<TEntity>(p => p.Id == entity.Id, entity);
+
+        public async Task UpdateManyAsync(Expression<Func<TEntity, bool>> expression, UpdateDefinition<TEntity> update)
+            => await _mongoCollection.UpdateManyAsync(expression, update);
     }
 }

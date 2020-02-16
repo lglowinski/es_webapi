@@ -1,27 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using chen0040.ExpertSystem;
+using ExpertalSystem.Dtos;
 using ExpertalSystem.Repositories;
 using ExpertalSystem.Requests;
 using Microsoft.Extensions.Logging;
 
 namespace ExpertalSystem.LogicServices
 {
-    public class QuestionService : IQuestionService
+    public class ConcludingService : IConcludingService
     {
         private readonly IEngineGenerator _generator;
         private readonly IQuestionRepository _questionRepository;
-        private readonly ILogger<QuestionService> _logger;
+        private readonly ILogger<ConcludingService> _logger;
 
-        public QuestionService(IEngineGenerator generator, IQuestionRepository questionRepository, ILogger<QuestionService> logger)
+        public ConcludingService(IEngineGenerator generator, IQuestionRepository questionRepository, ILogger<ConcludingService> logger)
         {
             _generator = generator;
             _questionRepository = questionRepository;
             _logger = logger;
         }
 
-        public async Task<object> Conclude(ConcludeRequest request)
+        //TODO: Refactor return type, create new type to be returned
+        public async Task<ConcludeResponse> Conclude(ConcludeRequest request)
         {
 
             var engine = await _generator.CreateEngine(request.Type);
@@ -29,12 +32,12 @@ namespace ExpertalSystem.LogicServices
             List<string> answersForCurrentQuestions = null;
             var unprovedConditions = new List<Clause>();
 
-            if (request.Facts != null) {
-                foreach (IncomingClause clause in request.Facts)
+            if (request.Facts != null)
+            {
+                foreach (var fact in request.Facts.Select(clause => new IsClause(clause.Variable, clause.Value)))
                 {
-                    var fact = new IsClause(clause.Variable, clause.Value);
                     engine.AddFact(fact);
-                } 
+                }
             }
             if (request.Answer != null)
                 engine.AddFact(new IsClause(request.PreviousQuestion, request.Answer));
@@ -51,24 +54,28 @@ namespace ExpertalSystem.LogicServices
                 catch(ArgumentOutOfRangeException exception)
                 {
                     _logger.LogError(exception.Message);
-                    return new { error = $"No problem found for issue type: {request.Type}" };
+                    return new ConcludeResponse()
+                    {
+                        Conclusion = "Nie można było znaleźć odpowiedzi, skontaktuj się z serwisem"
+                    };
                 }
             }
 
-            if (conclusion != null) return new
+            if (conclusion != null) return new ConcludeResponse()
             {
-                question = "",
-                answers = new List<string>(),
-                facts = "",
-                consequence = $"{conclusion.Value}:{conclusion.Value}"
+                Conclusion = $"{conclusion.Value}"
             };
 
-            return new
+            return new ConcludeResponse()
             {
-                question = currentClause.Variable,
-                answers = answersForCurrentQuestions,
-                facts = engine.Accessor.GetFacts(engine.Facts),
-                consequence = ""
+                Question = currentClause.Variable,
+                Answers = answersForCurrentQuestions,
+                Facts = engine.Accessor.GetFacts(engine.Facts).Select(fact=> new IncomingClause()
+                {
+                    Condition = fact.Condition,
+                    Value = fact.Value,
+                    Variable = fact.Variable
+                }).ToList()
             };
         }
     }

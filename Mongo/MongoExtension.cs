@@ -39,7 +39,7 @@ namespace ExpertalSystem.Mongo
             ).As<IRepository<TEntity>>().InstancePerLifetimeScope();
         }
 
-        public static TModel GetOptions<TModel>(this IConfiguration configuration, string section) where TModel : new()
+        private static TModel GetOptions<TModel>(this IConfiguration configuration, string section) where TModel : new()
         {
             var model = new TModel();
             configuration.GetSection(section).Bind(model);

@@ -7,13 +7,13 @@ namespace ExpertalSystem.Authorization
     {
         public static string HashPassword(string password)
         {
-            byte[] salt = new byte[16];
+            var salt = new byte[16];
             new RNGCryptoServiceProvider().GetBytes(salt);
 
             var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
-            byte[] hash = pbkdf2.GetBytes(20);
+            var hash = pbkdf2.GetBytes(20);
 
-            byte[] hashBytes = new byte[36];
+            var hashBytes = new byte[36];
             Array.Copy(salt, 0, hashBytes, 0, 16);
             Array.Copy(hash, 0, hashBytes, 16, 20);
 
@@ -22,14 +22,14 @@ namespace ExpertalSystem.Authorization
 
         public static bool Encrypt(string password, string savedPasswordHash)
         {
-            byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
-            byte[] salt = new byte[16];
+            var hashBytes = Convert.FromBase64String(savedPasswordHash);
+            var salt = new byte[16];
             Array.Copy(hashBytes, 0, salt, 0, 16);
 
             var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
-            byte[] hash = pbkdf2.GetBytes(20);
+            var hash = pbkdf2.GetBytes(20);
 
-            for (int i = 0; i < 20; i++)
+            for (var i = 0; i < 20; i++)
                 if (hashBytes[i + 16] != hash[i])
                     return false;
             return true;

@@ -53,12 +53,11 @@ namespace ExpertalSystem.Controllers
             var fetchedUser = await _userRepository.GetAsync(x=>x.Name.Equals(authenticateRequest.Login));
             if (fetchedUser is null) return NotFound("User with this name was not found");
 
-            if (Hasher.Encrypt(authenticateRequest.Password, fetchedUser.Password))
-            {
-                var token = _jWTManager.GenerateToken(fetchedUser.Id.ToString(), fetchedUser.Name, 43200);
-                return Ok(new JwtToken { Token = token });
-            }
-            return BadRequest("Wrong password");
+            if (!Hasher.Encrypt(authenticateRequest.Password, fetchedUser.Password))
+                return BadRequest("Wrong password");
+
+            var token = _jWTManager.GenerateToken(fetchedUser.Id.ToString(), fetchedUser.Name, 43200);
+            return Ok(new JwtToken { Token = token });
         }
     }
 }

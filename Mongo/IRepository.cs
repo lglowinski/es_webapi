@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace ExpertalSystem.Mongo
 {
@@ -13,5 +14,6 @@ namespace ExpertalSystem.Mongo
         Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> expression);
         Task AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
+        Task UpdateManyAsync(Expression<Func<TEntity, bool>> expression, UpdateDefinition<TEntity> update);
     }
 }

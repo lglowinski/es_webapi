@@ -32,9 +32,7 @@ namespace ExpertalSystem.Repositories
         public async Task<User> GetAsync(Guid id)
             => await _repository.GetAsync(id);
 
-        public Task UpdateAsync(User entity)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task UpdateAsync(User entity)
+            => await _repository.UpdateAsync(entity);
     }
 }
