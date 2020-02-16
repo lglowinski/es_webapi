@@ -1,1 +1,0 @@
-S:\inżynierka\api\es_webapi\.sonarqube\out\0
