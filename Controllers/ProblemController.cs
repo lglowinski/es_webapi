@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpertalSystem.Controllers
 {
-    [ApiController]
     [Route("problems")]
     public class ProblemController : BaseController
     {

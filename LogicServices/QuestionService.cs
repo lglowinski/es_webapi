@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using chen0040.ExpertSystem;
 using ExpertalSystem.Repositories;
 using ExpertalSystem.Requests;
+using Microsoft.Extensions.Logging;
 
 namespace ExpertalSystem.LogicServices
 {
@@ -10,10 +12,13 @@ namespace ExpertalSystem.LogicServices
     {
         private readonly IEngineGenerator _generator;
         private readonly IQuestionRepository _questionRepository;
-        public QuestionService(IEngineGenerator generator, IQuestionRepository questionRepository)
+        private readonly ILogger<QuestionService> _logger;
+
+        public QuestionService(IEngineGenerator generator, IQuestionRepository questionRepository, ILogger<QuestionService> logger)
         {
             _generator = generator;
             _questionRepository = questionRepository;
+            _logger = logger;
         }
 
         public async Task<object> Conclude(ConcludeRequest request)
@@ -38,8 +43,16 @@ namespace ExpertalSystem.LogicServices
 
             if (conclusion is null)
             {
-                currentClause = unprovedConditions[0];
-                answersForCurrentQuestions = await _questionRepository.GetQuestionAnswers(currentClause.Variable);
+                try
+                {
+                    currentClause = unprovedConditions[0];
+                    answersForCurrentQuestions = await _questionRepository.GetQuestionAnswers(currentClause.Variable);
+                }
+                catch(ArgumentOutOfRangeException exception)
+                {
+                    _logger.LogError(exception.Message);
+                    return new { error = $"No problem found for issue type: {request.Type}" };
+                }
             }
 
             if (conclusion != null) return new

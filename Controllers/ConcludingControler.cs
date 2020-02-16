@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpertalSystem.Controllers
 {
+    [Route("concluding")]
     public class ConcludingControler : BaseController
     {
         private readonly IQuestionService _questionService;
@@ -12,6 +13,7 @@ namespace ExpertalSystem.Controllers
         {
             _questionService = questionService;
         }
+
         [HttpPost]
         public async Task<ActionResult<object>> Conclude(ConcludeRequest request)
         {

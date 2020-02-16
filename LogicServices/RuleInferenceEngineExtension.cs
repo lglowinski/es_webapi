@@ -4,6 +4,6 @@ namespace ExpertalSystem.LogicServices
 {
     public class RuleInferenceEngineExtension : RuleInferenceEngine
     {
-        public FactsExtension Accessor { get; set; }
+        public FactsExtension Accessor { get; set; } = new FactsExtension();
     }
 }

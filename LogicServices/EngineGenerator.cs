@@ -16,6 +16,7 @@ namespace ExpertalSystem.LogicServices
         {
             var engine = new RuleInferenceEngineExtension();
             var problems = await _problemRepository.FindAsync();
+            if (problems is null) return engine;
 
             foreach(var problem in problems)
             {
@@ -34,6 +35,7 @@ namespace ExpertalSystem.LogicServices
         {
             var engine = new RuleInferenceEngineExtension();
             var problems = await _problemRepository.FindAsync(issueType);
+            if (problems is null) return engine;
 
             foreach (var problem in problems)
             {
