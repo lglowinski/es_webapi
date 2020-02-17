@@ -32,6 +32,9 @@ namespace ExpertalSystem.Mongo
         public async Task UpdateAsync(TEntity entity)
             => await _mongoCollection.ReplaceOneAsync<TEntity>(p => p.Id == entity.Id, entity);
 
+        public async Task<DeleteResult> DeleteAsync(Guid id)
+            => await _mongoCollection.DeleteOneAsync(p => p.Id == id);
+
         public async Task UpdateManyAsync(Expression<Func<TEntity, bool>> expression, UpdateDefinition<TEntity> update)
             => await _mongoCollection.UpdateManyAsync(expression, update);
     }

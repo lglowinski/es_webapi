@@ -14,6 +14,7 @@ namespace ExpertalSystem.Mongo
         Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> expression);
         Task AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
+        Task<DeleteResult> DeleteAsync(Guid id);
         Task UpdateManyAsync(Expression<Func<TEntity, bool>> expression, UpdateDefinition<TEntity> update);
     }
 }

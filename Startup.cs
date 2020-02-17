@@ -2,6 +2,7 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using ExpertalSystem.Authorization;
+using ExpertalSystem.Caching;
 using ExpertalSystem.Domain;
 using ExpertalSystem.Mongo;
 using ExpertalSystem.Swagger;
@@ -37,6 +38,7 @@ namespace ExpertalSystem
             services.AddCustomAuthorization(Configuration);
 
             services.AddControllers();
+            services.AddRedis(Configuration);
             services.AddSwagger();
 
             services.AddMvcCore(options =>

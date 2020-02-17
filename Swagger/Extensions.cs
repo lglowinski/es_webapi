@@ -46,9 +46,9 @@ namespace ExpertalSystem.Swagger
                         Scheme = "oauth2",
                         Name = "Bearer",
                         In = ParameterLocation.Header,
-                    },
+                     },
                     new List<string>()
-                  }
+                    }
                 });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

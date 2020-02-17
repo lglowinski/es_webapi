@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ExpertalSystem.Domain;
 using ExpertalSystem.Mongo;
+using MongoDB.Driver;
 
 namespace ExpertalSystem.Repositories
 {
@@ -43,5 +44,8 @@ namespace ExpertalSystem.Repositories
 
         public async Task<Problem> GetAsync(Expression<Func<Problem, bool>> expression)
             => await _repository.GetAsync(expression);
+
+        public async Task<DeleteResult> DeleteAsync(Guid id)
+            => await _repository.DeleteAsync(id);
     }
 }

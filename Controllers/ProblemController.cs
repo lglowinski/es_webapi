@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 using System.Threading.Tasks;
+using ExpertalSystem.Caching;
 using ExpertalSystem.Domain;
 using ExpertalSystem.Repositories;
 using ExpertalSystem.Requests;
@@ -14,14 +16,18 @@ namespace ExpertalSystem.Controllers
     {
         private readonly IProblemRepository _problemRepository;
         private readonly IQuestionRepository _questionRepository;
+        private readonly ICacheProvider _cacheProvider;
         public ProblemController(IProblemRepository problemRepository,
-            IQuestionRepository questionRepository)
+            IQuestionRepository questionRepository,
+            ICacheProvider cacheProvider)
         {
             _problemRepository = problemRepository;
             _questionRepository = questionRepository;
+            _cacheProvider = cacheProvider;
         }
 
         [HttpGet]
+        [Cached]
         public async Task<ActionResult<IEnumerable<Domain.Problem>>> GetAllProblems([FromQuery] GetAllProblemsRequest request)
         {
             var problem = await _problemRepository.FindAsync(p=>p.IssueType == request.IssueType);
@@ -29,6 +35,7 @@ namespace ExpertalSystem.Controllers
         }
 
         [HttpGet("{id}")]
+        [Cached]
         public async Task<ActionResult<IEnumerable<Domain.Problem>>> GetProblem([FromRoute] Guid id)
         {
             var problem = await _problemRepository.GetAsync(id);
@@ -96,7 +103,19 @@ namespace ExpertalSystem.Controllers
             }
 
             await _problemRepository.AddAsync(newProblem);
+            await _cacheProvider.DumpCache();
             return Created($"{Request.Path.Value}/{newProblem.Id}", newProblem);
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteProblem([FromRoute]Guid id)
+        {
+            var result = await _problemRepository.DeleteAsync(id);
+            if (result.DeletedCount <= 0) return NotFound();
+
+            await _cacheProvider.DumpCache();
+            return NoContent();
         }
     }
 }

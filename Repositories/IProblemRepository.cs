@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ExpertalSystem.Domain;
+using MongoDB.Driver;
 
 namespace ExpertalSystem.Repositories
 {
@@ -14,5 +15,6 @@ namespace ExpertalSystem.Repositories
         Task<IEnumerable<Problem>> FindAsync();
         Task<Problem> GetAsync(Guid id);
         Task<Problem> GetAsync(Expression<Func<Problem, bool>> expression);
+        Task<DeleteResult> DeleteAsync(Guid id);
     }
 }

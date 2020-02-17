@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ExpertalSystem.Caching;
 using ExpertalSystem.Domain;
 using ExpertalSystem.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,7 @@ namespace ExpertalSystem.Controllers
         }
 
         [HttpGet("{type}")]
+        [Cached]
         public async Task<ActionResult<object>> GetQuestions([FromRoute] IssueType type)
         {
             var problems = (await _problemRepository.FindAsync(p => p.IssueType == type));
