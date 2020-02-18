@@ -117,5 +117,13 @@ namespace ExpertalSystem.Controllers
             await _cacheProvider.DumpCache();
             return NoContent();
         }
+
+        [Authorize]
+        [HttpPut]
+        public async Task<ActionResult> UpdateProblem([FromBody]UpdateProblemRequest request)
+        {
+            await _cacheProvider.DumpCache();
+            return Accepted();
+        }
     }
 }
