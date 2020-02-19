@@ -21,7 +21,7 @@ namespace ExpertalSystem.Caching
         /// </summary>
         /// <param name="key">Key of response</param>
         /// <returns></returns>
-        Task<string> GetCachedResponseAsync(string key);
+        Task<string> GetCachedResponseAsync(string cacheKey);
 
         /// <summary>
         /// Drops all cache existing in REDIS database
