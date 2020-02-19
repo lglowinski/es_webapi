@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ExpertalSystem.Caching
@@ -19,7 +17,7 @@ namespace ExpertalSystem.Caching
         /// <summary>
         /// Gets cached response by key
         /// </summary>
-        /// <param name="key">Key of response</param>
+        /// <param name="cacheKey">Key of response</param>
         /// <returns></returns>
         Task<string> GetCachedResponseAsync(string cacheKey);
 
