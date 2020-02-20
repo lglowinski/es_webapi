@@ -1,5 +1,6 @@
 ﻿#nullable enable
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using ExpertalSystem.Requests;
 
 namespace ExpertalSystem.Dtos

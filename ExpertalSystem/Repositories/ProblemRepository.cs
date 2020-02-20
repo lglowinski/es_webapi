@@ -47,5 +47,8 @@ namespace ExpertalSystem.Repositories
 
         public async Task<DeleteResult> DeleteAsync(Guid id)
             => await _repository.DeleteAsync(id);
+
+        public async Task UpdateAsync(Problem entity)
+            => await _repository.UpdateAsync(entity);
     }
 }

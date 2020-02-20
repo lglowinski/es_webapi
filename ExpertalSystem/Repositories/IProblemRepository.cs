@@ -16,5 +16,6 @@ namespace ExpertalSystem.Repositories
         Task<Problem> GetAsync(Guid id);
         Task<Problem> GetAsync(Expression<Func<Problem, bool>> expression);
         Task<DeleteResult> DeleteAsync(Guid id);
+        Task UpdateAsync(Problem entity);
     }
 }
