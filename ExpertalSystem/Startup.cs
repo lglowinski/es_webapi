@@ -56,6 +56,7 @@ namespace ExpertalSystem
         {
             BsonSerializer.RegisterSerializer<IBase>(new ImpliedImplementationInterfaceSerializer<IBase, BaseEntity>(BsonSerializer.LookupSerializer<BaseEntity>()));
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly()).AsImplementedInterfaces();
+
             builder.AddMongo();
             builder.AddRepository<User>("Users");
             builder.AddRepository<Problem>("Problems");
